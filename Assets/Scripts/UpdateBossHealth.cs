@@ -6,6 +6,7 @@ public class UpdateBossHealth : MonoBehaviour {
 
 	[Range(0,1)]
 	public float health;
+	public Health monster;
 
 	private float healthBefore;
 	Rect rectHealth;
@@ -18,6 +19,8 @@ public class UpdateBossHealth : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		health = (float)monster.hp / monster.totalHp;
+
 		rectHealth.width = health * healthBefore;
 		//GetComponent<RectTransform> ().offsetMin = rectHealth.min;
 		//GetComponent<RectTransform> ().offsetMax = rectHealth.max-22;

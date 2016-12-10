@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class Health : MonoBehaviour {
 
+	public int totalHp;
 	public int hp;
 
 	void Start () {
-		
-	}
-
-	void Update () {
-		
+		hp = totalHp;
 	}
 }
