@@ -41,6 +41,10 @@ public class Player2D : MonoBehaviour {
 
 	public void SetDirectionalInput(Vector2 input) {
 		directionalInput = input;
+		if(directionalInput.x != 0) {
+			// Flip the sprite for left direction
+			transform.localScale = new Vector3(directionalInput.x, transform.localScale.y, transform.localScale.z);
+		}
 	}
 
 	public void OnJumpInputDown() {
