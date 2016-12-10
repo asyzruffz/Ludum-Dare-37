@@ -26,7 +26,7 @@ public class Controller2D : MonoBehaviour {
 	}
 
 	// Called to move the character
-	public void Move(Vector2 moveAmount) {
+	public void Move (Vector2 moveAmount) {
 		UpdateRaycastOrigins ();
 		collisions.Reset ();
 		moveAmountOld = moveAmount;
@@ -43,7 +43,7 @@ public class Controller2D : MonoBehaviour {
 
 		transform.Translate (moveAmount);
 	}
-
+	
 	// Modify the moveAmount based on horizontal collisions
 	private void HorizontalCollisions(ref Vector2 moveAmount) {
 		float directionX = Mathf.Sign (moveAmount.x);
