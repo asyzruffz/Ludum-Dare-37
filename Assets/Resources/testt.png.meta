@@ -1,0 +1,121 @@
+fileFormatVersion: 2
+guid: 184e6c1a15a8542429ebd6d29ed6b83d
+timeCreated: 1481345278
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: testt_0
+    21300002: testt_1
+    21300004: testt_2
+    21300006: testt_3
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: testt_0
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 334
+        width: 96
+        height: 113
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -48, y: 56.5}
+        - {x: -48, y: -56.5}
+        - {x: 48, y: -56.5}
+        - {x: 48, y: 56.5}
+    - name: testt_1
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 324
+        width: 116
+        height: 118
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -58, y: 59}
+        - {x: -58, y: -59}
+        - {x: 58, y: -59}
+        - {x: 58, y: 59}
+    - name: testt_2
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 328
+        width: 146
+        height: 116
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -73, y: 58}
+        - {x: -73, y: -58}
+        - {x: 73, y: -58}
+        - {x: 73, y: 58}
+    - name: testt_3
+      rect:
+        serializedVersion: 2
+        x: 499
+        y: 309
+        width: 203
+        height: 151
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -101.5, y: 75.5}
+        - {x: -101.5, y: -75.5}
+        - {x: 101.5, y: -75.5}
+        - {x: 101.5, y: 75.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
