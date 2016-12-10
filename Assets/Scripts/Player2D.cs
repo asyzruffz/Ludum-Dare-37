@@ -16,12 +16,14 @@ public class Player2D : MonoBehaviour {
 	private float gravity;
 
 	private Controller2D controller;
+	private Animator animator;
 	private Vector2 directionalInput;
 	private Vector2 velocity;
 	private float velocityXSmoothing;
 
 	void Start () {
-		controller = GetComponent<Controller2D>();
+		controller = GetComponent<Controller2D> ();
+		animator = GetComponent<Animator> ();
 
 		gravity = (2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
 		maxJumpSpeed = gravity * timeToJumpApex;
@@ -41,10 +43,18 @@ public class Player2D : MonoBehaviour {
 
 	public void SetDirectionalInput(Vector2 input) {
 		directionalInput = input;
-		if(directionalInput.x != 0) {
-			// Flip the sprite for left direction
-			transform.localScale = new Vector3(directionalInput.x, transform.localScale.y, transform.localScale.z);
+		if (directionalInput.x != 0) {
+			// Flip the sprite appropriately
+			transform.localScale = new Vector3 (directionalInput.x, transform.localScale.y, transform.localScale.z);
+
+			animator.SetInteger ("animState", 1);
+		} else {
+			animator.SetInteger ("animState", 0);
 		}
+	}
+
+	public void SetAttacking (bool attack) {
+		animator.SetBool ("attacking", attack);
 	}
 
 	public void OnJumpInputDown() {
