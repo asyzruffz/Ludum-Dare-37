@@ -23,9 +23,9 @@ GameObject:
   - component: {fileID: 95194527061566146}
   - component: {fileID: 61922359704563348}
   - component: {fileID: 114995391191716698}
-  - component: {fileID: 114753113053702574}
   - component: {fileID: 114624314671192546}
   - component: {fileID: 114100349243261772}
+  - component: {fileID: 114224480186264086}
   m_Layer: 0
   m_Name: EyeMonster
   m_TagString: Untagged
@@ -40,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1051207769776830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.89, y: 0.61064583, z: 0}
+  m_LocalPosition: {x: -1.47, y: -0.59, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -89,6 +89,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0}
+  velocity: {x: 0, y: 0}
+--- !u!114 &114224480186264086
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1051207769776830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a48a8dee3af9a0d49b8240d93437afa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 2
+  viewAngle: 80
+  checkingTimeInterval: 0.2
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 256
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 512
+  visibleTargets: []
 --- !u!114 &114624314671192546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -101,23 +123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 20
---- !u!114 &114753113053702574
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1051207769776830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9356a2d45c6d1dd4b94727649465688c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 6
-  maxJumpHeight: 4
-  minJumpHeight: 1
-  timeToJumpApex: 0.4
-  accelerationTimeGrounded: 0.1
-  accelerationTimeAirborne: 0.2
 --- !u!114 &114995391191716698
 MonoBehaviour:
   m_ObjectHideFlags: 1
