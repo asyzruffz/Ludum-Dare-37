@@ -19,7 +19,9 @@ public class UpdateBossHealth : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		rectHealth.width = health * healthBefore;
-		GetComponent<RectTransform> ().offsetMin = rectHealth.min;
-		GetComponent<RectTransform> ().offsetMax = rectHealth.max;
+		//GetComponent<RectTransform> ().offsetMin = rectHealth.min;
+		//GetComponent<RectTransform> ().offsetMax = rectHealth.max-22;
+		RectTransform rt = GetComponent<RectTransform>();
+		rt.sizeDelta = new Vector2(rectHealth.width, rectHealth.height);
 	}
 }
