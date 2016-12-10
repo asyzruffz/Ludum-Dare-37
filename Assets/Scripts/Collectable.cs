@@ -12,10 +12,12 @@ public class Collectable : MonoBehaviour {
 	void Update () {
 	
 	}
+
     void OnTriggerEnter2D(Collider2D target)
     {
         if(target.gameObject.tag=="Player")
         {
+            Debug.Log("Destroy");
             Destroy(gameObject);
         }
     }
