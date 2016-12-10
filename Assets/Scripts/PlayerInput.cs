@@ -20,5 +20,7 @@ public class PlayerInput : MonoBehaviour {
 		if (Input.GetButtonUp ("Jump")) {
 			player.OnJumpInputUp ();
 		}
-	}
+
+}
+
 }
