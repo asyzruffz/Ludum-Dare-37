@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114624314671192546}
   - component: {fileID: 114100349243261772}
   - component: {fileID: 114224480186264086}
+  - component: {fileID: 114889531571485082}
   m_Layer: 0
   m_Name: EyeMonster
   m_TagString: Untagged
@@ -40,7 +41,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1051207769776830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.47, y: -0.59, z: 0}
+  m_LocalPosition: {x: -2.8, y: 0.11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -88,8 +89,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7563d5c49564fe84eba0bc90ad701aa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 2
+  attackRange: 2
   target: {x: 0, y: 0}
-  velocity: {x: 0, y: 0}
+  laserPrefab: {fileID: 1452220609488340, guid: e0d486e544e146e478145a6df83d0fd4,
+    type: 2}
+  laserCooldown: 1
 --- !u!114 &114224480186264086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -101,8 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a48a8dee3af9a0d49b8240d93437afa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 2
-  viewAngle: 80
+  viewRadius: 6
+  viewAngle: 300
   checkingTimeInterval: 0.2
   targetMask:
     serializedVersion: 2
@@ -124,6 +129,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalHp: 20
   hp: 20
+--- !u!114 &114889531571485082
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1051207769776830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 763d67a5003a6d14696b59c1f7fd5c14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laservelocity: 9
+  laser: {fileID: 1577303806864330, guid: 227ba4eed5f421143b67c7a49d516fa6, type: 2}
+  player: {fileID: 114044996982765632, guid: 2b00f259febfecc43aa696b5f57efabf, type: 2}
+  shootRate: 1
+  shootRateStamp: 3
 --- !u!114 &114995391191716698
 MonoBehaviour:
   m_ObjectHideFlags: 1
