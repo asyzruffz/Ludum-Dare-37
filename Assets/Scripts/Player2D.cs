@@ -23,6 +23,7 @@ public class Player2D : MonoBehaviour {
 	private Vector2 directionalInput;
 	private Vector2 velocity;
 	private float velocityXSmoothing;
+	private bool isDefending;
 
 	void Start () {
 		controller = GetComponent<Controller2D> ();
@@ -53,13 +54,29 @@ public class Player2D : MonoBehaviour {
 
 			animator.SetInteger ("animState", 1);
 		} else {
-			animator.SetInteger ("animState", 0);
+			if (!isDefending) {
+				animator.SetInteger ("animState", 0);
+			}
 		}
 	}
 
+	public void SetDefending (bool defend) {
+		if (defend) {
+			animator.SetInteger ("animState", 2);
+			isDefending = true;
+			GetComponent<Health> ().isInvincible = isDefending;
+		}
+	}
+
+	public void StopDefending () {
+		isDefending = false;
+		GetComponent<Health> ().isInvincible = isDefending;
+	}
+
 	public void SetAttacking (bool attack) {
-		animator.SetBool ("attacking", attack);
+		//animator.SetBool ("attacking", attack);
 		if (attack) {
+			animator.SetInteger ("animState", 3);
 			Vector3 offset = new Vector3 (0.16f, 0, 0) * Mathf.Sign (transform.localScale.x);
 			SwingSword (offset);
 		}

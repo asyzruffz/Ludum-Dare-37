@@ -36,7 +36,7 @@ public class Projectile : MonoBehaviour {
 		}
 
 		if (target.gameObject.CompareTag (damageTo)) {
-			target.GetComponent<Health> ().hp--;
+			target.GetComponent<Health> ().TakeDamage(1);
 		}
 
 		Destroy (gameObject);
