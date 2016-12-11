@@ -11,6 +11,7 @@ public class EyeMonster : Monster {
 	private float timer = 0;
 	private Animator animator;
 	private bool isStaggered = false;
+	private bool isDead = false;
 
 	protected override void Start () {
 		base.Start ();
@@ -20,7 +21,7 @@ public class EyeMonster : Monster {
 	
 	protected override void Update () {
 		base.Update ();
-		SetAttacking (fov.HasTarget ());
+		SetAttacking (fov.HasTarget () && !isDead);
 
 		timer += Time.deltaTime;
 	}
@@ -52,13 +53,14 @@ public class EyeMonster : Monster {
 	}
 
 	void ShootLaser(Vector2 direction, Vector3 offset) {
-		if (timer >= laserCooldown) {
+		if (timer >= laserCooldown && !isDead) {
 			timer = 0;
 			animator.SetInteger ("animState", 2);
 
 			Quaternion rotation = Quaternion.AngleAxis (Mathf.Atan2 (direction.y, direction.x) * Mathf.Rad2Deg, Vector3.forward);
 			GameObject laser = Instantiate (laserPrefab, transform.position + offset, rotation);
 			laser.GetComponent<Projectile> ().direction = direction;
+			laser.GetComponent<Projectile> ().sourceSpawn = "Enemy";
 		} else {
 			if (isStaggered) {
 				animator.SetInteger ("animState", 1);
@@ -69,7 +71,8 @@ public class EyeMonster : Monster {
 	}
 
 	void OnDeath () {
-		//animator.SetInteger ("animState", 3);
-		//destroy after time
+		isDead = true;
+		animator.SetInteger ("animState", 3);
+		Destroy (gameObject, 2);
 	}
 }

@@ -6,9 +6,12 @@ public class Projectile : MonoBehaviour {
 	public float lifetime = 1;
 	public Vector2 direction = Vector2.right;
 	public float speed;
+	public string damageTo;
 
 	[HideInInspector]
 	public GameObject source;
+	[HideInInspector]
+	public string sourceSpawn;
 
 	void Start () {
 
@@ -28,11 +31,11 @@ public class Projectile : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D target) {
-		if (target.gameObject.CompareTag ("Enemy")) {
+		if (target.gameObject.CompareTag (sourceSpawn) || target.gameObject.CompareTag (gameObject.tag)) {
 			return;
 		}
 
-		if (target.gameObject.CompareTag ("Player")) {
+		if (target.gameObject.CompareTag (damageTo)) {
 			target.GetComponent<Health> ().hp--;
 		}
 

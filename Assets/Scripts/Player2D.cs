@@ -15,6 +15,9 @@ public class Player2D : MonoBehaviour {
 	private float minJumpSpeed;
 	private float gravity;
 
+	[Header("Attack")]
+	public GameObject swooshPrefab;
+
 	private Controller2D controller;
 	private Animator animator;
 	private Vector2 directionalInput;
@@ -56,6 +59,10 @@ public class Player2D : MonoBehaviour {
 
 	public void SetAttacking (bool attack) {
 		animator.SetBool ("attacking", attack);
+		if (attack) {
+			Vector3 offset = new Vector3 (0.16f, 0, 0) * Mathf.Sign (transform.localScale.x);
+			SwingSword (offset);
+		}
 	}
 
 	public void OnJumpInputDown() {
@@ -74,6 +81,13 @@ public class Player2D : MonoBehaviour {
 		float targetVelocityX = directionalInput.x * moveSpeed;
 		velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
 		velocity.y += -gravity * Time.deltaTime;
+	}
+
+	void SwingSword(Vector3 offset) {
+		GameObject swoosh = Instantiate (swooshPrefab, transform.position + offset, Quaternion.identity);
+		//swoosh.GetComponent<Projectile> ().direction = direction;
+		swoosh.GetComponent<Projectile> ().sourceSpawn = "Player";
+		swoosh.transform.parent = transform;
 	}
 
 	void OnDeath () {
