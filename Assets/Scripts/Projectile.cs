@@ -23,11 +23,20 @@ public class Projectile : MonoBehaviour {
 		}
 
 		lifetime -= Time.deltaTime;
-		transform.Translate (direction * speed * Time.deltaTime, Space.World);
+		GetComponent<Rigidbody2D> ().velocity = direction * speed * Time.deltaTime;
+		//transform.Translate (direction * speed * Time.deltaTime, Space.World);
 	}
 
-	void OnCollisionEnter2D(Collision2D target) {
-		Destroy(gameObject);
+	void OnTriggerEnter2D(Collider2D target) {
+		if (target.gameObject.CompareTag ("Enemy")) {
+			return;
+		}
+
+		if (target.gameObject.CompareTag ("Player")) {
+			target.GetComponent<Health> ().hp--;
+		}
+
+		Destroy (gameObject);
 	}
 
 	/*public virtual void Spawn(Transform trans, Vector3 offset, float speed, GameObject src) {

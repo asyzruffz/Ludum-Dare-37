@@ -24,6 +24,7 @@ public class Player2D : MonoBehaviour {
 	void Start () {
 		controller = GetComponent<Controller2D> ();
 		animator = GetComponent<Animator> ();
+		GetComponent<Health> ().deathEvent += OnDeath;
 
 		gravity = (2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
 		maxJumpSpeed = gravity * timeToJumpApex;
@@ -73,5 +74,9 @@ public class Player2D : MonoBehaviour {
 		float targetVelocityX = directionalInput.x * moveSpeed;
 		velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
 		velocity.y += -gravity * Time.deltaTime;
+	}
+
+	void OnDeath () {
+		Destroy (gameObject);
 	}
 }
