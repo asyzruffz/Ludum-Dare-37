@@ -20,6 +20,11 @@ public class PlayerInput : MonoBehaviour {
 		if (Input.GetButtonUp ("Jump")) {
 			player.OnJumpInputUp ();
 		}
+
 		player.SetAttacking (Input.GetButtonDown("Fire1"));
+		player.SetDefending (Input.GetButtonDown("Fire2"));
+		if (Input.GetButtonUp("Fire2")) {
+			player.StopDefending ();
+		}
 	}
 }
