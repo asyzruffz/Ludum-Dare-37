@@ -9,8 +9,9 @@ public class Health : MonoBehaviour {
 	public bool isInvincible;
 
 	public delegate void CharacterDeathDelegate();
+	public delegate void CharacterHitDelegate();
 	public event CharacterDeathDelegate deathEvent;
-
+	public event CharacterHitDelegate hitEvent;
 
 	void Start () {
 		hp = totalHp;
@@ -18,7 +19,6 @@ public class Health : MonoBehaviour {
 
 	void Update() {
 		if (hp <= 0) {
-			GameMaster.UIState = GameUIState.GAMEOVER;
 			deathEvent ();
 		}
 	}
@@ -26,6 +26,7 @@ public class Health : MonoBehaviour {
 	public void TakeDamage(int damage) {
 		if (!isInvincible) {
 			hp -= damage;
+			hitEvent ();
 		}
 	}
 }

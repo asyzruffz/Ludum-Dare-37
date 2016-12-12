@@ -17,7 +17,9 @@ public class FieldOfView2DEditor : Editor {
 
         Handles.color = Color.red;
         foreach(Transform visibleTarget in fov.visibleTargets) {
-            Handles.DrawLine(fov.transform.position, visibleTarget.transform.position);
+			if (visibleTarget) {
+				Handles.DrawLine (fov.transform.position, visibleTarget.transform.position);
+			}
         }
     }
 }

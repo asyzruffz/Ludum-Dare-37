@@ -13,7 +13,7 @@ public static class GameMaster {
     public static bool IsSinglePlayerMode = true;
     public static int PlayerWinId = 0;
 
-    public static void CheckGameStatus(bool end) {
+    public static void SetGameStatus(bool end) {
         UIState = end ? GameUIState.GAMEOVER : GameUIState.INGAME;
     }
 

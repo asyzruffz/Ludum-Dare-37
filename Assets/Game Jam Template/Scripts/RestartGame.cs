@@ -42,7 +42,7 @@ public class RestartGame : MonoBehaviour {
     public void DoRestart() {
         //Set time.timescale to 1, this will cause animations and physics to continue updating at regular speed
         Time.timeScale = 1;
-        GameMaster.CheckGameStatus(false);
+        GameMaster.SetGameStatus(false);
         //call the HidePausePanel function of the ShowPanels script
         showPanels.HideGameOverPanel();
         SceneManager.LoadScene(startScript.sceneToStart);

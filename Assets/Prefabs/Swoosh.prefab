@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf4fdefe9254ae94f8d47e6c75096961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifetime: 0.6
+  lifetime: 0.3
   direction: {x: 1, y: 0}
   speed: 0
   damageTo: Enemy

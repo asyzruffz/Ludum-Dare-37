@@ -8,28 +8,40 @@ public class EyeMonster : Monster {
 	public GameObject laserPrefab;
 	public float laserCooldown = 1;
 
-	private float timer = 0;
 	private Animator animator;
+	private float laserTimer = 0;
+	private bool isShooting = false;
 	private bool isStaggered = false;
 	private bool isDead = false;
 
 	protected override void Start () {
 		base.Start ();
 		animator = GetComponent<Animator> ();
+		GetComponent<Health> ().hitEvent += OnHit;
 		GetComponent<Health> ().deathEvent += OnDeath;
 	}
 	
 	protected override void Update () {
 		base.Update ();
-		SetAttacking (fov.HasTarget () && !isDead);
+		SetAttacking (fov.HasTarget () && !(isStaggered || isDead));
 
-		timer += Time.deltaTime;
+		if (GetComponent<Health> ().hp <= 5) {
+			isStaggered = true;
+		}
+
+		UpdateAnimation ();
+
+		laserTimer += Time.deltaTime;
 	}
 
 	public void SetAttacking (bool attack) {
 		if (attack) {
-			// Set the target
-			target = fov.visibleTargets [0].position;
+			if (fov.visibleTargets [0] != null) {
+				// Set the target
+				target = fov.visibleTargets [0].position;
+			} else {
+				return;
+			}
 
 			Vector2 diff = target - (Vector2)transform.position;
 			// Move towards attacking range
@@ -45,6 +57,7 @@ public class EyeMonster : Monster {
 
 				SetDirectionalInput (aim);
 				velocity = Vector2.zero;
+
 			}
 		} else {
 			// Stop attacking
@@ -53,26 +66,32 @@ public class EyeMonster : Monster {
 	}
 
 	void ShootLaser(Vector2 direction, Vector3 offset) {
-		if (timer >= laserCooldown && !isDead) {
-			timer = 0;
-			animator.SetInteger ("animState", 2);
+		if (laserTimer >= laserCooldown) {
+			laserTimer = 0;
+			isShooting = true;
 
 			Quaternion rotation = Quaternion.AngleAxis (Mathf.Atan2 (direction.y, direction.x) * Mathf.Rad2Deg, Vector3.forward);
 			GameObject laser = Instantiate (laserPrefab, transform.position + offset, rotation);
 			laser.GetComponent<Projectile> ().direction = direction;
 			laser.GetComponent<Projectile> ().sourceSpawn = "Enemy";
 		} else {
-			if (isStaggered) {
-				animator.SetInteger ("animState", 1);
-			} else {
-				animator.SetInteger ("animState", 0);
-			}
+			isShooting = false;
 		}
+	}
+
+	void UpdateAnimation() {
+		animator.SetInteger ("animState", isDead ? 3 : isStaggered ? 1 : isShooting ? 2 : 0);
+	}
+
+	void OnHit () {
+		
 	}
 
 	void OnDeath () {
 		isDead = true;
-		animator.SetInteger ("animState", 3);
-		Destroy (gameObject, 2);
+	}
+
+	public void DestroySelf() {
+		Destroy (gameObject);
 	}
 }
