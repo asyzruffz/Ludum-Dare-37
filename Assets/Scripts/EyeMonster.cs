@@ -93,5 +93,6 @@ public class EyeMonster : Monster {
 
 	public void DestroySelf() {
 		Destroy (gameObject);
+		GameMaster.PlayerWinId = 1;
 	}
 }

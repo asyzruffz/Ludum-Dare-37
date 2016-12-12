@@ -23,7 +23,7 @@ public class Player2D : MonoBehaviour {
 	private Vector2 directionalInput;
 	private Vector2 velocity;
 	private float velocityXSmoothing;
-	private bool isDefending;
+	public bool isDefending;
 	private bool isHit;
 	private bool isDead;
 	private float hitTimer = 0;
@@ -65,25 +65,15 @@ public class Player2D : MonoBehaviour {
 			// Flip the sprite appropriately
 			transform.localScale = new Vector3 (directionalInput.x, transform.localScale.y, transform.localScale.z);
 
-			animator.SetInteger ("animState", isDead ? 6 : isHit ? 5 : (controller.collisions.below) ? 1 : 2);
+			animator.SetInteger ("animState", isDead ? 6 : isDefending ? 4 : isHit ? 5 : (controller.collisions.below) ? 1 : 2);
 		} else {
-			if (!isDefending) {
-				animator.SetInteger ("animState", isDead ? 6 : isHit ? 5 : (controller.collisions.below) ? 0 : 2);
-			}
+			animator.SetInteger ("animState", isDead ? 6 : isDefending ? 4 : isHit ? 5 : (controller.collisions.below) ? 0 : 2);
 		}
 	}
 
 	public void SetDefending (bool defend) {
-		if (defend) {
-			animator.SetInteger ("animState", 4);
-			isDefending = true;
-			GetComponent<Health> ().isInvincible = isDefending;
-		}
-	}
-
-	public void StopDefending () {
-		isDefending = false;
-		GetComponent<Health> ().isInvincible = isDefending;
+		isDefending = defend;
+		GetComponent<Health> ().isInvincible = defend;
 	}
 
 	public void SetAttacking (bool attack) {
