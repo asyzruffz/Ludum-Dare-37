@@ -26,6 +26,8 @@ GameObject:
   - component: {fileID: 114184895905203542}
   - component: {fileID: 114044996982765632}
   - component: {fileID: 114572684104723788}
+  - component: {fileID: 82586735758277824}
+  - component: {fileID: 114465111896663984}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -40,7 +42,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1136653240427090}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.25, y: -2.02, z: 0}
+  m_LocalPosition: {x: -4.534, y: -2.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -60,6 +62,87 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 0.52, y: 0.64}
+--- !u!82 &82586735758277824
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1136653240427090}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24301952, guid: 0ac7fb39e445048d89688f69c2a1839a,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95719818114904968
 Animator:
   serializedVersion: 3
@@ -96,6 +179,7 @@ MonoBehaviour:
   accelerationTimeAirborne: 0.2
   swooshPrefab: {fileID: 1956038001196874, guid: ec7ba507172998b43812425b18f1f3bf,
     type: 2}
+  isDefending: 0
 --- !u!114 &114184895905203542
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -126,6 +210,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 797eec993de5702489a670c65a59db2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114465111896663984
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1136653240427090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fddf822cfb02f54a92001d9a65d7250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundSet:
+  - soundType: Jump
+    audios:
+    - {fileID: 8300000, guid: 680e8913e5d140c4086d7cc858f599df, type: 3}
+  - soundType: Attack
+    audios:
+    - {fileID: 8300000, guid: 4ea862ee576033e4cbb167b2930f1d99, type: 3}
+    - {fileID: 8300000, guid: fe1566a805e03c942a08196f80e8c8d3, type: 3}
+    - {fileID: 8300000, guid: 03638df0b00b6724fae33f1571777a42, type: 3}
+  - soundType: Defend
+    audios:
+    - {fileID: 8300000, guid: 713fd478a6709f44b8fed416846c235b, type: 3}
+  - soundType: Hurt
+    audios:
+    - {fileID: 8300000, guid: c40688a7fa806154bb09b0e2e2b8a9ad, type: 3}
+  - soundType: Die
+    audios:
+    - {fileID: 8300000, guid: 5fe83ecf93fc23a4598b6f7ae3952e23, type: 3}
 --- !u!114 &114572684104723788
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -139,6 +252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalHp: 3
   hp: 3
+  isInvincible: 0
 --- !u!212 &212342618760787676
 SpriteRenderer:
   m_ObjectHideFlags: 1

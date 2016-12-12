@@ -4,20 +4,12 @@ using UnityEngine;
 
 public class UpdatePlayerHealth : MonoBehaviour {
 
-	//[Range(0,3)]
-	//public int health;
 	public Health player;
 
 	public HeartStatus one, two, three;
 
 	// Use this for initialization
 	void Start () {
-		//if (player.hp <= 1)
-		//	one.status = true;
-		//else if (player.hp <= 2)
-	//		two.status = true;
-	//	else if (player.hp <= 3)
-	//		three.status = true;
 	}
 	
 	// Update is called once per frame

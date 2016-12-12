@@ -20,6 +20,7 @@ public class Player2D : MonoBehaviour {
 
 	private Controller2D controller;
 	private Animator animator;
+	private AudioManager audioManager;
 	private Vector2 directionalInput;
 	private Vector2 velocity;
 	private float velocityXSmoothing;
@@ -31,6 +32,7 @@ public class Player2D : MonoBehaviour {
 	void Start () {
 		controller = GetComponent<Controller2D> ();
 		animator = GetComponent<Animator> ();
+		audioManager = GetComponent<AudioManager> ();
 		GetComponent<Health> ().hitEvent += OnHit;
 		GetComponent<Health> ().deathEvent += OnDeath;
 
@@ -41,6 +43,10 @@ public class Player2D : MonoBehaviour {
 
 	void Update () {
 		CalculateVelocity ();
+
+		if (isDead) {
+			velocity.x = 0;
+		}
 
 		controller.Move (velocity * Time.deltaTime);
 
@@ -72,6 +78,10 @@ public class Player2D : MonoBehaviour {
 	}
 
 	public void SetDefending (bool defend) {
+		if (!isDefending && defend) {
+			audioManager.PlaySoundType ("Defend");
+		}
+
 		isDefending = defend;
 		GetComponent<Health> ().isInvincible = defend;
 	}
@@ -85,6 +95,7 @@ public class Player2D : MonoBehaviour {
 	public void OnJumpInputDown() {
 		if (controller.collisions.below) {
 			velocity.y = maxJumpSpeed;
+			audioManager.PlaySoundType ("Jump");
 		}
 	}
 
@@ -105,13 +116,18 @@ public class Player2D : MonoBehaviour {
 		GameObject swoosh = Instantiate (swooshPrefab, transform.position + offset, Quaternion.identity);
 		swoosh.GetComponent<Projectile> ().sourceSpawn = "Player";
 		swoosh.transform.parent = transform;
+		audioManager.PlaySoundType ("Attack");
 	}
 
 	void OnHit () {
 		isHit = true;
+		audioManager.PlaySoundType ("Hurt");
 	}
 
 	void OnDeath () {
+		if (!isDead) {
+			audioManager.PlaySoundType ("Die");
+		}
 		isDead = true;
 	}
 
