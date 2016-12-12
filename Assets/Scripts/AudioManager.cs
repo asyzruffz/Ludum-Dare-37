@@ -1,33 +1,39 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class AudioManager : MonoBehaviour{
 
-	public AudioClip[] audios;
+	public SoundSet[] soundSet;
 
-	// Use this for initialization
+	private AudioSource audioSource;
+
 	void Start () {
-		
+		audioSource = GetComponent<AudioSource> ();
 	}
 
-	void PlaySound (){
-		AudioSource audio = gameObject.AddComponent<AudioSource >();
-		audio.PlayOneShot (Randommizer());
+	public void PlaySoundType (string soundType) {
+		for(int i = 0; i < soundSet.Length; i++) {
+			if (soundType == soundSet [i].soundType) {
+				audioSource.PlayOneShot (Randomizer (i));
+				return;
+			}
+		}
+
+		Debug.Log (gameObject.name + ": No sound set [" + soundType + "] found!");
 	}
 
-	AudioClip Randommizer (){
-		int size = audios.Length;
+	AudioClip Randomizer (int index) {
+		int size = soundSet [index].audios.Length;
 		System.Random r = new System.Random();
 		int rIndex = r.Next(0, size);
-		return audios [rIndex];
+		return soundSet [index].audios [rIndex];
 	}
 
-	// Update is called once per frame
-	void Update () {
-		// test
-		if (true) {
-			PlaySound ();
-		}
+	[Serializable]
+	public struct SoundSet {
+		public string soundType;
+		public AudioClip[] audios;
 	}
 }
+

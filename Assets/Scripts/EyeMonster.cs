@@ -9,6 +9,7 @@ public class EyeMonster : Monster {
 	public float laserCooldown = 1;
 
 	private Animator animator;
+	private AudioManager audioManager;
 	private float laserTimer = 0;
 	private bool isShooting = false;
 	private bool isStaggered = false;
@@ -17,6 +18,7 @@ public class EyeMonster : Monster {
 	protected override void Start () {
 		base.Start ();
 		animator = GetComponent<Animator> ();
+		audioManager = GetComponent<AudioManager> ();
 		GetComponent<Health> ().hitEvent += OnHit;
 		GetComponent<Health> ().deathEvent += OnDeath;
 	}
@@ -26,6 +28,9 @@ public class EyeMonster : Monster {
 		SetAttacking (fov.HasTarget () && !(isStaggered || isDead));
 
 		if (GetComponent<Health> ().hp <= 5) {
+			if (!isStaggered) {
+				audioManager.PlaySoundType ("Staggered");
+			}
 			isStaggered = true;
 		}
 
@@ -74,6 +79,8 @@ public class EyeMonster : Monster {
 			GameObject laser = Instantiate (laserPrefab, transform.position + offset, rotation);
 			laser.GetComponent<Projectile> ().direction = direction;
 			laser.GetComponent<Projectile> ().sourceSpawn = "Enemy";
+
+			audioManager.PlaySoundType ("Laser");
 		} else {
 			isShooting = false;
 		}
@@ -88,6 +95,9 @@ public class EyeMonster : Monster {
 	}
 
 	void OnDeath () {
+		if (!isDead) {
+			audioManager.PlaySoundType ("Die");
+		}
 		isDead = true;
 	}
 
