@@ -19,9 +19,8 @@ public class MonsterShoot : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetMouseButton(0)&&Time.time>shootRateStamp) {
-				GameObject go = (GameObject)Instantiate (laser, transform.position, Quaternion.identity);
+			Instantiate (laser, transform.position, Quaternion.identity);
 			shootRateStamp = Time.time + shootRate;
+		}
 	}
-}
-
 }

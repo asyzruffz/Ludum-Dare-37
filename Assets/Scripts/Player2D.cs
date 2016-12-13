@@ -15,15 +15,26 @@ public class Player2D : MonoBehaviour {
 	private float minJumpSpeed;
 	private float gravity;
 
+	[Header("Attack")]
+	public GameObject swooshPrefab;
+
 	private Controller2D controller;
 	private Animator animator;
+	private AudioManager audioManager;
 	private Vector2 directionalInput;
 	private Vector2 velocity;
 	private float velocityXSmoothing;
+	public bool isDefending;
+	private bool isHit;
+	private bool isDead;
+	private float hitTimer = 0;
 
 	void Start () {
 		controller = GetComponent<Controller2D> ();
 		animator = GetComponent<Animator> ();
+		audioManager = GetComponent<AudioManager> ();
+		GetComponent<Health> ().hitEvent += OnHit;
+		GetComponent<Health> ().deathEvent += OnDeath;
 
 		gravity = (2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
 		maxJumpSpeed = gravity * timeToJumpApex;
@@ -33,11 +44,24 @@ public class Player2D : MonoBehaviour {
 	void Update () {
 		CalculateVelocity ();
 
+		if (isDead) {
+			velocity.x = 0;
+		}
+
 		controller.Move (velocity * Time.deltaTime);
 
 		// Reset velocity gained by gravity if collided above and below
 		if (controller.collisions.above || controller.collisions.below) {
 			velocity.y = 0;
+		}
+
+		// Set how long the hit animation to be
+		if (isHit) {
+			hitTimer += Time.deltaTime;
+			if (hitTimer >= 0.5f) {
+				hitTimer = 0;
+				isHit = false;
+			}
 		}
 	}
 
@@ -47,19 +71,31 @@ public class Player2D : MonoBehaviour {
 			// Flip the sprite appropriately
 			transform.localScale = new Vector3 (directionalInput.x, transform.localScale.y, transform.localScale.z);
 
-			animator.SetInteger ("animState", 1);
+			animator.SetInteger ("animState", isDead ? 6 : isDefending ? 4 : isHit ? 5 : (controller.collisions.below) ? 1 : 2);
 		} else {
-			animator.SetInteger ("animState", 0);
+			animator.SetInteger ("animState", isDead ? 6 : isDefending ? 4 : isHit ? 5 : (controller.collisions.below) ? 0 : 2);
 		}
 	}
 
+	public void SetDefending (bool defend) {
+		if (!isDefending && defend) {
+			audioManager.PlaySoundType ("Defend");
+		}
+
+		isDefending = defend;
+		GetComponent<Health> ().isInvincible = defend;
+	}
+
 	public void SetAttacking (bool attack) {
-		animator.SetBool ("attacking", attack);
+		if (attack) {
+			animator.SetInteger ("animState", 3);
+		}
 	}
 
 	public void OnJumpInputDown() {
 		if (controller.collisions.below) {
 			velocity.y = maxJumpSpeed;
+			audioManager.PlaySoundType ("Jump");
 		}
 	}
 
@@ -73,5 +109,30 @@ public class Player2D : MonoBehaviour {
 		float targetVelocityX = directionalInput.x * moveSpeed;
 		velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
 		velocity.y += -gravity * Time.deltaTime;
+	}
+
+	void SwingSword() {
+		Vector3 offset = new Vector3 (0.16f, 0.1f, 0) * Mathf.Sign (transform.localScale.x);
+		GameObject swoosh = Instantiate (swooshPrefab, transform.position + offset, Quaternion.identity);
+		swoosh.GetComponent<Projectile> ().sourceSpawn = "Player";
+		swoosh.transform.parent = transform;
+		audioManager.PlaySoundType ("Attack");
+	}
+
+	void OnHit () {
+		isHit = true;
+		audioManager.PlaySoundType ("Hurt");
+	}
+
+	void OnDeath () {
+		if (!isDead) {
+			audioManager.PlaySoundType ("Die");
+		}
+		isDead = true;
+	}
+
+	public void DestroySelf() {
+		Destroy (gameObject);
+		GameMaster.SetGameStatus(true);
 	}
 }

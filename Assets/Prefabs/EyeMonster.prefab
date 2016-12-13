@@ -26,10 +26,11 @@ GameObject:
   - component: {fileID: 114624314671192546}
   - component: {fileID: 114100349243261772}
   - component: {fileID: 114224480186264086}
-  - component: {fileID: 114889531571485082}
+  - component: {fileID: 82208825230477684}
+  - component: {fileID: 114061836777180524}
   m_Layer: 0
   m_Name: EyeMonster
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41,8 +42,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1051207769776830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.8, y: 0.11, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 3.03, y: -0.33, z: 0}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -58,9 +59,90 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0.15056276, y: -0.16344607}
+  m_Offset: {x: 0.15056276, y: 0.19887185}
   serializedVersion: 2
-  m_Size: {x: 1.6679903, y: 2.1261423}
+  m_Size: {x: 1.6679903, y: 1.4015064}
+--- !u!82 &82208825230477684
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1051207769776830}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24324684, guid: 0ac7fb39e445048d89688f69c2a1839a,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95194527061566146
 Animator:
   serializedVersion: 3
@@ -78,6 +160,30 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114061836777180524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1051207769776830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fddf822cfb02f54a92001d9a65d7250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundSet:
+  - soundType: Laser
+    audios:
+    - {fileID: 8300000, guid: c0b68ae98a0a582489bbee3402568f25, type: 3}
+  - soundType: Staggered
+    audios:
+    - {fileID: 8300000, guid: 5a75651eb8ff89941a2e0d7119ce14f3, type: 3}
+    - {fileID: 8300000, guid: 99a4ed7a5138f1848a4d76d9c3945b7b, type: 3}
+  - soundType: Die
+    audios:
+    - {fileID: 8300000, guid: d12ab9e112b8d7d4db240fd0644bdee3, type: 3}
+    - {fileID: 8300000, guid: 722123edb6bc8b845a3a036aca358b2d, type: 3}
+    - {fileID: 8300000, guid: a8d09a9b0be71f74da3c3cd444c6954b, type: 3}
 --- !u!114 &114100349243261772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -92,9 +198,9 @@ MonoBehaviour:
   speed: 2
   attackRange: 2
   target: {x: 0, y: 0}
-  laserPrefab: {fileID: 1452220609488340, guid: e0d486e544e146e478145a6df83d0fd4,
+  laserPrefab: {fileID: 1614409680497270, guid: 662086069f5a1b648b8a1c96c538c93a,
     type: 2}
-  laserCooldown: 1
+  laserCooldown: 2
 --- !u!114 &114224480186264086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -107,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewRadius: 6
-  viewAngle: 300
+  viewAngle: 360
   checkingTimeInterval: 0.2
   targetMask:
     serializedVersion: 2
@@ -129,22 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalHp: 20
   hp: 20
---- !u!114 &114889531571485082
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1051207769776830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 763d67a5003a6d14696b59c1f7fd5c14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  laservelocity: 9
-  laser: {fileID: 1577303806864330, guid: 227ba4eed5f421143b67c7a49d516fa6, type: 2}
-  player: {fileID: 114044996982765632, guid: 2b00f259febfecc43aa696b5f57efabf, type: 2}
-  shootRate: 1
-  shootRateStamp: 3
+  isInvincible: 0
 --- !u!114 &114995391191716698
 MonoBehaviour:
   m_ObjectHideFlags: 1
