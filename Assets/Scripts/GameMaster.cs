@@ -12,6 +12,7 @@ public static class GameMaster {
     public static GameUIState UIState = GameUIState.MAINMENU;
     public static bool IsSinglePlayerMode = true;
     public static int PlayerWinId = 0;
+	public static bool showCutscene = true;
 
     public static void SetGameStatus(bool end) {
         UIState = end ? GameUIState.GAMEOVER : GameUIState.INGAME;

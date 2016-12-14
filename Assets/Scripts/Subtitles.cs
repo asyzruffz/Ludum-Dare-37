@@ -1,82 +1,62 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Subtitles : MonoBehaviour {
 
+	public float timePerPage = 1;
+	public bool startOnAwake = true;
+	public string[] subtitleText;
+	[Header("Sound")]
+	public AudioClip textSound;
 
-	public string SubtitleText;
-	public string SubtitleText1;
-	public string SubtitleText2;
-	public string SubtitleText3;
-	public string SubtitleText4;
-	public string SubtitleText5;
-	public string SubtitleText6;
-	public string SubtitleText7;
-	public bool ShowSubtitle=false;
-	public int SubtitleCount =1;
-	public float Subtimer;
+	private Text displayText;
+	private AudioSource audioSource;
+	private float timer = 0;
+	private int currentPage = 0;
+	private bool textStart = true;
+	private bool textEnd = false;
 
-
-	// Use this for initialization
-	void Start()
-	{
-		Subtimer = SubtitleCount;	
+	void Start() {
+		displayText = GetComponent<Text> ();
+		audioSource = GetComponent<AudioSource> ();
+		textStart = startOnAwake;
 	}
-	// Update is called once per frame
+
 	void Update () {
-		if(Subtimer>0)
-		{
-			Subtimer -= Time.deltaTime;
+		if (textEnd || !textStart) {
+			return;
 		}
-		if(Subtimer<=0)
-		{
-			SubtitleCount+=1;
-			Subtimer=SubtitleCount;
-		}
-		if(ShowSubtitle==true)
-		{
-			if(SubtitleCount==1)
-			{
-				SubtitleText = SubtitleText1;
-			}
-			if(SubtitleCount==2)
-			{
-				SubtitleText = SubtitleText2;
-			}
-			if(SubtitleCount==3)
-			{
-				SubtitleText = SubtitleText3;
-			}
-			if(SubtitleCount==4)
-			{
-				SubtitleText = SubtitleText4;
-			}
-			if(SubtitleCount==5)
-			{
-				SubtitleText = SubtitleText5;
-			}
-			if(SubtitleCount==6)
-			{
-				SubtitleText = SubtitleText6;
-			}
-			if(SubtitleCount==7)
-			{
-				SubtitleText = SubtitleText7;
-			}
-			if (SubtitleCount > 7) {
-				ShowSubtitle = false;
+
+		if (timer >= timePerPage) {
+			timer = 0;
+			currentPage++;
+
+			if (currentPage >= subtitleText.Length) {
+				displayText.text = "";
+				textEnd = true;
+				return;
+			} else {
+				if (textSound) {
+					audioSource.PlayOneShot (textSound);
+				}
 			}
 		}
-	}
-		
-	void OnGUI()
-	{
-		if (ShowSubtitle == true) {
-			Vector3 centre = Camera.main.ViewportToScreenPoint(Vector3.one/2);
-			Debug.Log (centre.ToString());
-			GUI.Box(new Rect(centre.x - 100,centre.y - 100,200,200),"" + SubtitleText);
+
+		if (subtitleText.Length > 0) {
+			displayText.text = subtitleText[currentPage];
 		}
+
+		timer += Time.deltaTime;
 	}
 
+	public void RestartSubtitle() {
+		currentPage = 0;
+		timer = 0;
+		textStart = true;
+		textEnd = false;
+	}
+
+	public bool HasEnded() {
+		return textEnd;
+	}
 }
